@@ -8,4 +8,4 @@ Testing: where we combine everything
 - UI/UX will handle logic of web page
 - Math will process whatever UI/UX sends over
 - Visualization will recieve info from UI/UX to render the graphs
-- *Everything will then be sent to Testing before pushing to Testing*
+- *Everything will then be sent to Testing before pushing to Main*
