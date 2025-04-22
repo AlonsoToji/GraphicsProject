@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Shape Drawer</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            width: 65%;
+            height: 80vh;
+            border: 2px solid black;
+        }
+        .sidebar {
+            width: 30%;
+            background-color: #c47c3d;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sidebar button {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .canvas-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            position: relative;
+        }
+        canvas {
+            border: 1px solid black;
+            width: 700px;
+            height: 700px;
+        }
+        #plot3d {
+            display: none;
+            width: 700px;
+            height: 700px;
+        }
+    </style>
+</head>
+<body onload="drawGraph()">
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <h2>Welcome to Mathematics in 3D!</h2>
+            <button onclick="showInputs('circle')">Circle</button>
+            <button onclick="showInputs('square')">Square</button>
+            <button onclick="showInputs('triangle')">Triangle</button>
+            <button onclick="showInputs('3d')">3D</button>
+            <div class="input-section" id="inputSection"></div>
+        </div>
+        <div class="canvas-container">
+            <canvas id="canvas" width="1000" height="1000"></canvas>
+            <div id="plot3d"></div>
+        </div>
+    </div>
+    <script>
+        function drawGraph() {
+            let canvas = document.getElementById("canvas");
+            let ctx = canvas.getContext("2d");
+            let width = canvas.width;
+            let height = canvas.height;
+            let step = 20; 
+            
+            ctx.clearRect(0, 0, width, height);
+            ctx.strokeStyle = "#ddd";
+            
+            for (let x = step; x < width; x += step) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+                ctx.stroke();
+            }
+            for (let y = step; y < height; y += step) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+                ctx.stroke();
+            }
+            
+            ctx.strokeStyle = "black";
+            ctx.beginPath();
+            ctx.moveTo(width / 2, 0);
+            ctx.lineTo(width / 2, height);
+            ctx.moveTo(0, height / 2);
+            ctx.lineTo(width, height / 2);
+            ctx.stroke();
+        }
+
+        function draw3DGraph() {
+            document.getElementById("canvas").style.display = "none";
+            document.getElementById("plot3d").style.display = "block";
+
+            let x = []; 
+            let y = [];
+            let z = [];
+            
+            for (let i = -10; i <= 10; i += 1) {
+                let rowX = [];
+                let rowY = [];
+                let rowZ = [];
+                for (let j = -10; j <= 10; j += 1) {
+                    rowX.push(i);
+                    rowY.push(j);
+                    rowZ.push(Math.sin(Math.sqrt(i*i + j*j)));
+                }
+                x.push(rowX);
+                y.push(rowY);
+                z.push(rowZ);
+            }
+            
+            let data = [{
+                type: 'surface',
+                x: x,
+                y: y,
+                z: z
+            }];
+            
+            Plotly.newPlot('plot3d', data);
+        }
+
+        function showInputs(shape) {
+            let inputSection = document.getElementById('inputSection');
+            inputSection.innerHTML = '';
+            document.getElementById("canvas").style.display = "block";
+            document.getElementById("plot3d").style.display = "none";
+            if (shape === 'circle') {
+                inputSection.innerHTML = `
+                    <p>Circle: Shape with no angles and curved sides. Has a radius and center.</p>
+                    <input type="number" id="radius" placeholder="Enter radius">
+                    <input type="number" id="xCoord" placeholder="Enter X coordinate">
+                    <input type="number" id="yCoord" placeholder="Enter Y coordinate">
+                    <button onclick="drawGraph()">Draw</button>`;
+            } else if (shape === 'square') {
+                inputSection.innerHTML = `
+                    <p>Square: Shape with four equal sides.</p>
+                    <input type="number" id="xCoord" placeholder="Enter X coordinate">
+                    <input type="number" id="yCoord" placeholder="Enter Y coordinate">
+                    <input type="number" id="sideLength" placeholder="Enter side length">
+                    <button onclick="drawGraph()">Draw</button>`;
+            } else if (shape === '3d') {
+                inputSection.innerHTML = '<p>3D Graph: Surface plot of a function.</p>';
+                draw3DGraph();
+            }
+        }
+    </script>
+</body>
+</html>
