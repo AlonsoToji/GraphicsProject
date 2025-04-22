@@ -107,17 +107,18 @@ function toggle2DMode() {
 // Toggles 3D mode (controls visibility of 3D buttons only)
 function toggle3DMode() {
     if (!canvas) {
-        console.error("Canvas element not found.");
-        return;
+      console.error("Canvas element not found.");
+      return;
     }
-
+  
     is2D_Displayed = false;
     is3D_Displayed = !is3D_Displayed;
     console.log("3D Mode is now:", is3D_Displayed);
-
+  
     if (is3D_Displayed) {
-        clear2DButtons();              // Clear 2D elements
-        clearCanvas();                 // Clears the graph
-        initialize3DDrawing(true);     // Show 3D input options
+      clear2DButtons();              // Clear 2D UI
+      clearCanvas();                 // Clear canvas
+      initialize3DDrawing(true);     // 👈 This must be here!
     }
-}
+  }
+  
