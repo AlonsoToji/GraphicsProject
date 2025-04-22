@@ -1,0 +1,57 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+.container {
+    display: flex;
+    width: 65%;
+    height: 80vh;
+    border: 2px solid black;
+}
+.sidebar {
+    width: 30%;
+    background-color: #c47c3d;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sidebar button {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.button-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: 50px;
+    width: 100%;
+    text-align: center;
+}
+.canvas-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    position: relative;
+}
+canvas {
+    border: 1px solid black;
+    width: 700px;
+    height: 700px;
+}
+#plot3d {
+    display: none;
+    width: 700px;
+    height: 700px;
+}

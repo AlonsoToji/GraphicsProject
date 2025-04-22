@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing For Computer Graphics</title>
+    <link rel="stylesheet" href="Styles/stylesheet.css">
+</head>
+<body> 
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <h1>Welcome to Mathematics in 3D!</h1>
+            <div class="button-container">
+                <button onclick="toggle2DMode()" style="margin-left: 30px; width: 40%; font-weight: bold;">2D</button>
+                <button onclick="toggle3DMode()" style="margin-left: 30px; width: 40%; font-weight: bold;">3D</button>
+            </div>
+            <div class="button-container" id="shapeButtonsContainer">
+                <!-- Shape buttons will be dynamically inserted here from 2D_Drawing.js and 3D_Drawing.js -->
+            </div>
+            <div>
+                <div class="input-section" id="inputSection"></div>
+                <button onclick="clearCanvas()" style="background-color: red; width: 50%; margin-top: 100px;">Clear Graph</button>
+            </div>
+        </div>
+        <div class="canvas-container">
+            <canvas id="canvas" width="1000" height="1000"></canvas>
+            <div id="plot3d"></div>
+        </div>
+    </div>
+
+    <button onclick="window.location.href='about.html'">Go to About page</button>
+    
+    <!-- This script will active the models
+     <script src="index.js"></script>
+     -->
+    
+    <script type="module" src="Main.js"></script>
+</body>
+</html>
