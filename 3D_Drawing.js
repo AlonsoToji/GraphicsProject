@@ -21,7 +21,6 @@ export function initialize3DDrawing(is3D_Displayed) {
   draw3DShapeButtons();  // Draw 3D shape buttons
 }
 
-
 // Draw basic 3D coordinate system
 function draw3DGrid() {
   const scale = 80;
