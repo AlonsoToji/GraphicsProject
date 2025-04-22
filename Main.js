@@ -111,14 +111,18 @@ function toggle3DMode() {
       return;
     }
   
-    is2D_Displayed = false;
-    is3D_Displayed = !is3D_Displayed;
+    is2D_Displayed = false;  // Hide 2D mode
+    is3D_Displayed = !is3D_Displayed;  // Toggle 3D mode
+
     console.log("3D Mode is now:", is3D_Displayed);
   
     if (is3D_Displayed) {
-      clear2DButtons();              // Clear 2D UI
-      clearCanvas();                 // Clear canvas
-      initialize3DDrawing(true);     // 👈 This must be here!
+      clear2DButtons();  // Clear 2D UI elements
+      clearCanvas();     // Clear the canvas
+      initialize3DDrawing(true);  // Initialize 3D mode
+    } else {
+      // If switching back from 3D mode, clear the 3D buttons and reset canvas
+      document.getElementById("shapeButtonsContainer").innerHTML = '';  // Clear 3D buttons
+      drawGraph(canvas, ctx);  // Draw the grid again
     }
-  }
-  
+}

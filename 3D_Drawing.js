@@ -4,8 +4,9 @@
 let originX, originY, ctx, canvas;
 
 // Setup and draw 3D coordinate system + buttons
+// Initialize 3D Drawing and render shapes and axes
 export function initialize3DDrawing(is3D_Displayed) {
-  if (!is3D_Displayed) return;
+  if (!is3D_Displayed) return;  // Only proceed if 3D mode is enabled
 
   canvas = document.getElementById("canvas");
   ctx = canvas.getContext("2d");
@@ -15,9 +16,11 @@ export function initialize3DDrawing(is3D_Displayed) {
   originX = canvas.width / 2;
   originY = canvas.height / 2;
 
+  // Draw the 3D grid and coordinate system
   draw3DGrid();
-  draw3DShapeButtons();
+  draw3DShapeButtons();  // Draw 3D shape buttons
 }
+
 
 // Draw basic 3D coordinate system
 function draw3DGrid() {
@@ -86,6 +89,16 @@ function project3D(x, y, z) {
 
 // Draw cube centered at origin
 function drawCube() {
+
+  // Update right sidebar
+  setInstructions(`
+    <ul class="list-disc list-inside space-y-1">
+      <li><strong>Cube</strong> is centered at origin.</li>
+      <li>Each side has length 2 units in 3D space.</li>
+      <li>Edges are drawn using axonometric projection.</li>
+    </ul>
+  `);
+
   const size = 1;
   const corners = [
     [-1, -1, -1],
