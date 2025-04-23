@@ -19,7 +19,12 @@ export function draw2DInputButtons(is2D_Displayed) {  // Pushes buttons that off
     buttons.forEach(({ label, handler }) => {
       const btn = document.createElement("button");
       btn.textContent = label;
-      btn.style.width = "70%";
+      btn.style.width = "80%";
+      btn.style.height = "150%";
+      btn.style.backgroundColor = '#2563EB';
+      btn.style.borderRadius = '10px';
+      btn.style.color = 'white';
+      btn.style.fontStyle = 'bold';
       btn.addEventListener("click", handler);
       shapeButtonsContainer.appendChild(btn);
     });
