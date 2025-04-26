@@ -3,6 +3,11 @@
 // Global reference
 let originX, originY, ctx, canvas;
 
+function setInstructions(html) {
+  const panel = document.getElementById('instructionContent');
+  if (panel) panel.innerHTML = html;
+}
+
 // Setup and draw 3D coordinate system + buttons
 // Initialize 3D Drawing and render shapes and axes
 export function initialize3DDrawing(is3D_Displayed) {
@@ -58,7 +63,7 @@ function draw3DGrid() {
 
 // Add 3D shape buttons dynamically
 function draw3DShapeButtons() {
-  const container = document.getElementById("shapeButtonsContainer");
+  const container = document.getElementById("shapeButtons3D");
   container.innerHTML = ''; // Clear any previous buttons
 
   const buttons = [
@@ -88,9 +93,7 @@ function project3D(x, y, z) {
 }
 
 // Draw cube centered at origin
-function drawCube() {
-
-  // Update right sidebar
+export function drawCube() {
   setInstructions(`
     <ul class="list-disc list-inside space-y-1">
       <li><strong>Cube</strong> is centered at origin.</li>
@@ -131,7 +134,14 @@ function drawCube() {
 }
 
 // Draw a pyramid with square base
-function drawPyramid() {
+export function drawPyramid() {
+  setInstructions(`
+    <ul class="list-disc list-inside space-y-1">
+      <li><strong>Pyramid:</strong> Square base on XY-plane (2×2 units), apex at +1.5 units in Z.</li>
+      <li>Edges connect each base corner to the apex.</li>
+    </ul>
+  `);
+
   const base = [
     [-1, -1, 0],
     [1, -1, 0],
@@ -165,7 +175,13 @@ function drawPyramid() {
 }
 
 // Approximate sphere as a circle for now
-function drawSphere() {
+export function drawSphere() {
+  setInstructions(`
+    <ul class="list-disc list-inside space-y-1">
+      <li><strong>Sphere:</strong> Rendered as a circle + equatorial ellipse.</li>
+      <li>Radius = 1 unit.</li>
+    </ul>
+  `);
   const radius = 1;
   const [cx, cy] = project3D(0, 0, 0);
   ctx.beginPath();
@@ -181,7 +197,13 @@ function drawSphere() {
   ctx.stroke();
 }
 
-function drawPrism() {
+export function drawPrism() {
+  setInstructions(`
+    <ul class="list-disc list-inside space-y-1">
+      <li><strong>Prism:</strong> Rendered as a circle + equatorial ellipse.</li>
+      <li>Radius = 1 unit.</li>
+    </ul>
+  `);
   const radius = 1;
   const [cx, cy] = project3D(0, 0, 0);
   ctx.beginPath();

@@ -1,12 +1,38 @@
 // Main.js
 
-import { clear2DButtons } from './2D_Drawing.js';
-import { initialize3DDrawing } from './3D_Drawing.js';
+import {
+      clear2DButtons,
+      createPoint,
+      createLine,
+      chooseTriangle,
+      createCircle,
+      createSquare,
+      createRectangle
+    } from './2D_Drawing.js';
+import {
+      initialize3DDrawing,
+      drawCube,
+      drawPyramid,
+      drawSphere,
+      drawPrism
+    } from './3D_Drawing.js';
 
 // expose toggles/globals
 window.clearCanvas  = clearCanvas;
 window.toggle2DMode = toggle2DMode;
 window.toggle3DMode = toggle3DMode;
+window.createPoint = createPoint;
+window.createLine = createLine;
+window.chooseTriangle = chooseTriangle;
+window.createCircle = createCircle;
+window.createSquare = createSquare;
+window.createRectangle = createRectangle;
+
+window.drawCube = drawCube;
+window.drawPyramid = drawPyramid;
+window.drawSphere = drawSphere;
+window.drawPrism = drawPrism;
+
 
 const canvas = document.getElementById('canvas');
 const ctx    = canvas?.getContext('2d');
