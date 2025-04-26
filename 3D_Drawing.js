@@ -65,6 +65,7 @@ function draw3DShapeButtons() {
     { label: "Cube", handler: drawCube },
     { label: "Pyramid", handler: drawPyramid },
     { label: "Sphere", handler: drawSphere },
+    { label: "Prism", handler: drawPrism },
   ];
 
   buttons.forEach(({ label, handler }) => {
@@ -165,6 +166,22 @@ function drawPyramid() {
 
 // Approximate sphere as a circle for now
 function drawSphere() {
+  const radius = 1;
+  const [cx, cy] = project3D(0, 0, 0);
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius * 80, 0, 2 * Math.PI);
+  ctx.strokeStyle = "teal";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Add equator
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, radius * 80, radius * 20, 0, 0, 2 * Math.PI);
+  ctx.strokeStyle = "gray";
+  ctx.stroke();
+}
+
+function drawPrism() {
   const radius = 1;
   const [cx, cy] = project3D(0, 0, 0);
   ctx.beginPath();
