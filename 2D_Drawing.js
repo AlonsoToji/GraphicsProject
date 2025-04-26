@@ -50,15 +50,10 @@ function transformCoords(x, y) {  // Converts logical (x, y) to pixel coordinate
 function initialInputs(callback) {  // Retrieves the initial position from the user and runs the callback with those values
   const inputSection = document.getElementById('inputSection');
   inputSection.innerHTML = `
-    <p>Enter initial coordinates:</p>
-    <input type="number" id="xCoord" placeholder="X coordinate" color=black>
-    <input type="number" id="yCoord" placeholder="Y coordinate">
-    <button 
-      id="nextBtn"
-      class="w-4/5 py-2 my-2 bg-white text-black font-semibold rounded hover:bg-gray-200"
-    >
-      Next
-    </button>
+   <p style="text-align: center;"><strong>Enter initial coordinates:</strong></p><br>
+    <input type="number" style="margin-left: 40px;" id="xCoord" placeholder=" X coordinate">
+    <input type="number" style="margin-left: 40px;" id="yCoord" placeholder=" Y coordinate"><br><br>
+    <button id="nextBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px;" ><strong>Next</strong></button>
   `;
 
   document.getElementById("nextBtn").addEventListener("click", () => {
@@ -255,7 +250,7 @@ export function chooseTriangle() {   // Displays triangle type options for the u
     </ul>
   `);
   const inputSection = document.getElementById('inputSection');
-  inputSection.innerHTML = `<p>Choose the type of triangle you'd like to create</p>`;
+  inputSection.innerHTML = `<p class="text-center font-bold mb-3">Choose the type of triangle you'd like to create</p>`;
 
   const buttons = [ // Define the triangle options with their corresponding event handler functions
     { label: "Equilateral Triangle", handler: equilateralTriangle },
@@ -267,7 +262,13 @@ export function chooseTriangle() {   // Displays triangle type options for the u
   buttons.forEach(({ label, handler }) => {
     const btn = document.createElement("button");
     btn.textContent = label;
-    btn.style.width = "70%";
+    btn.style.width = "80%";
+    btn.style.color = "white";
+    btn.style.marginLeft = "25px";
+    btn.style.marginBottom = "5px";
+    btn.style.paddingBottom = "5px";
+    btn.style.borderRadius = "10px";
+    btn.style.backgroundColor = "#BE185D";
     btn.addEventListener("click", handler);
     inputSection.appendChild(btn);
   });
