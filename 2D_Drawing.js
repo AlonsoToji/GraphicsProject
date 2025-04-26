@@ -21,7 +21,7 @@ export function draw2DInputButtons(is2D_Displayed) {  // Pushes buttons that off
       btn.textContent = label;
       btn.style.width = "80%";
       btn.style.height = "150%";
-      btn.style.backgroundColor = '#2563EB';
+      btn.style.backgroundColor = '#BE185D';
       btn.style.borderRadius = '10px';
       btn.style.color = 'white';
       btn.style.fontStyle = 'bold';
@@ -48,10 +48,10 @@ function transformCoords(x, y) {  // Converts logical (x, y) to pixel coordinate
 function initialInputs(callback) {  // Retrieves the initial position from the user and runs the callback with those values
   const inputSection = document.getElementById('inputSection');
   inputSection.innerHTML = `
-    <p>Enter initial coordinates:</p>
-    <input type="number" id="xCoord" placeholder="X coordinate">
-    <input type="number" id="yCoord" placeholder="Y coordinate">
-    <button id="nextBtn">Next</button>
+    <p style="text-align: center;"><strong>Enter initial coordinates:</strong></p><br>
+    <input type="number" style="margin-left: 40px;" id="xCoord" placeholder=" X coordinate">
+    <input type="number" style="margin-left: 40px;" id="yCoord" placeholder=" Y coordinate"><br><br>
+    <button id="nextBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px;" ><strong>Next</strong></button>
   `;
 
   document.getElementById("nextBtn").addEventListener("click", () => {
