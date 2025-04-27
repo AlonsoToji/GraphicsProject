@@ -1,72 +1,78 @@
-// Main.js: Entry point that imports and initializes all modules
+//Main.js
+import {
+    clear2DButtons,
+    createPoint,
+    createLine,
+    chooseTriangle,
+    createCircle,
+    createSquare,
+    createRectangle
+} from './2D_Drawing.js';
 
-// Importing modules
-import { draw2DInputButtons } from './2D_Drawing.js';
-import { initialize3DDrawing } from './3D_Drawing.js';
-import { clear2DButtons as clear2DButtons } from './2D_Drawing.js';
+import {
+    initialize3DDrawing,
+    drawCube,
+    drawPyramid,
+    drawSphere,
+    drawPrism
+} from './3D_Drawing.js';
 
+import {
+    plotlyCube,
+    plotlyPyramid,
+    plotlySphere,
+    plotlyRectangularPrism
+} from './Plotly3D.js';
+
+window.clearCanvas = clearCanvas;
 window.toggle2DMode = toggle2DMode;
 window.toggle3DMode = toggle3DMode;
-window.drawGraph = drawGraph;
-window.clearCanvas = clearCanvas;  
+window.createPoint = createPoint;
+window.createLine = createLine;
+window.chooseTriangle = chooseTriangle;
+window.createCircle = createCircle;
+window.createSquare = createSquare;
+window.createRectangle = createRectangle;
+window.drawCube = drawCube;
+window.drawPyramid = drawPyramid;
+window.drawSphere = drawSphere;
+window.drawPrism = drawPrism;
+window.plotlyCube = plotlyCube;
+window.plotlyPyramid = plotlyPyramid;
+window.plotlySphere = plotlySphere;
+window.plotlyRectangularPrism = plotlyRectangularPrism;
 
-var is2D_Displayed = false;
-var is3D_Displayed = false;
+const canvas = document.getElementById('canvas');
+const ctx = canvas?.getContext('2d');
+const btn2D = document.getElementById('btn2D');
+const btn3D = document.getElementById('btn3D');
+const shape2D = document.getElementById('shapeButtons2D');
+const shape3D = document.getElementById('shapeButtons3D');
+const inputSection = document.getElementById('inputSection');
 
-// Shared canvas and context
-const canvas = document.getElementById("canvas");
-const ctx = canvas?.getContext("2d");  // Assures Canva 
+let is2D = false;
+let is3D = false;
 
-// Initialize canvas once and keep it visible afterwards
-function initCanvas() {
-   if (!canvas || !ctx) {
-     console.error("Bruh, canvas not found or context unavailable.");
-     return;
-   }
- 
-   canvas.style.display = "block";
-   drawGraph(canvas, ctx);
- }
-  
- // Set up application on page load
-  function init() {
-   console.log("App initialized");
-   initCanvas();
- }
- window.addEventListener('load', init);
+document.addEventListener('DOMContentLoaded', () => {
+    if (!canvas || !ctx) return console.error('Canvas missing');
+    drawGraph();
 
-// Clears the canvas and redraws the graph grid
-function clearCanvas() {
-    if (!canvas || !ctx) {
-      console.error("Canvas or context missing for clearing.");
-      return;
-    }
-  
-    console.log("Canvas cleared.");
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Fully clear everything
-    drawGraph(canvas, ctx); // Draw fresh grid and axes
-    document.getElementById("inputSection").innerHTML = ''; // Clear inputs
-  }
-  
+    btn2D && btn2D.addEventListener('click', toggle2DMode);
+    btn3D && btn3D.addEventListener('click', toggle3DMode);
+});
 
-// Initialize the Graph
-function drawGraph(canvas, ctx) {
-    const width = canvas.width;
-    const height = canvas.height;
+function drawGraph() {
+    const { width, height } = canvas;
     const step = 20;
 
     ctx.clearRect(0, 0, width, height);
-
-    ctx.strokeStyle = "#ddd";
-    // Draw vertical grid lines
+    ctx.strokeStyle = '#ddd';
     for (let x = step; x < width; x += step) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x, height);
         ctx.stroke();
     }
-
-    // Draw horizontal grid lines
     for (let y = step; y < height; y += step) {
         ctx.beginPath();
         ctx.moveTo(0, y);
@@ -74,50 +80,47 @@ function drawGraph(canvas, ctx) {
         ctx.stroke();
     }
 
-    // Draw X and Y axes
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = 'black';
     ctx.beginPath();
-    ctx.moveTo(width / 2, 0);
-    ctx.lineTo(width / 2, height);
-    ctx.moveTo(0, height / 2);
-    ctx.lineTo(width, height / 2);
+    ctx.moveTo(width/2, 0);
+    ctx.lineTo(width/2, height);
+    ctx.moveTo(0, height/2);
+    ctx.lineTo(width, height/2);
     ctx.stroke();
-
-    return;
 }
 
-// Toggles 2D mode (controls visibility of 2D buttons only)
+function clearCanvas() {
+    document.getElementById('plot3d').classList.add('hidden');
+    canvas.classList.remove('hidden');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawGraph();
+    inputSection.innerHTML = '';
+}
+
 function toggle2DMode() {
-    if (!canvas || !ctx) {
-        console.error("Canvas element not found.");
-        return;
-    }
+    is3D = false;
+    is2D = !is2D;
+    clearCanvas();
 
-    is3D_Displayed = false;
-    is2D_Displayed = !is2D_Displayed;
-    console.log("2D Mode is now:", is2D_Displayed);
-
-    if (is2D_Displayed) {
-        draw2DInputButtons(true);       // Show 2D input buttons
+    if (is2D) {
+        shape2D.classList.remove('hidden');
+        shape3D.classList.add('hidden');
     } else {
-        clear2DButtons();               // Clear buttons and input fields
+        clear2DButtons();
+        shape2D.classList.add('hidden');
     }
 }
 
-// Toggles 3D mode (controls visibility of 3D buttons only)
 function toggle3DMode() {
-    if (!canvas) {
-        console.error("Canvas element not found.");
-        return;
-    }
+    is2D = false;
+    is3D = !is3D;
+    clearCanvas();
 
-    is2D_Displayed = false;
-    is3D_Displayed = !is3D_Displayed;
-    console.log("3D Mode is now:", is3D_Displayed);
-
-    if (is3D_Displayed) {
-        clear2DButtons();              // Clear 2D elements
-        clearCanvas();                 // Clears the graph
-        initialize3DDrawing(true);     // Show 3D input options
+    if (is3D) {
+        shape3D.classList.remove('hidden');
+        shape2D.classList.add('hidden');
+        initialize3DDrawing(true);
+    } else {
+        shape3D.classList.add('hidden');
     }
 }

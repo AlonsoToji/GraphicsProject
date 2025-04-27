@@ -2,7 +2,15 @@
 
 window.drawInputButtons = draw2DInputButtons;     // Globally available to Main.js  
 
-export function draw2DInputButtons(is2D_Displayed) {  // Pushes buttons that offer 2D rendering options
+function setInstructions(html) {
+  const panel = document.getElementById('instructionContent');
+  if (panel) panel.innerHTML = html;
+}
+
+window.setInstructions = setInstructions;
+
+
+function draw2DInputButtons(is2D_Displayed) {  // Pushes buttons that offer 2D rendering options
   if (is2D_Displayed === true) {                      // Checks that the 2D button was pressed
     const shapeButtonsContainer = document.getElementById('shapeButtonsContainer');
 
@@ -26,7 +34,6 @@ export function draw2DInputButtons(is2D_Displayed) {  // Pushes buttons that off
   }
 }
 
-
 export function clear2DButtons() {  // Clears all input fields and shape buttons for 2D section
   document.getElementById("inputSection").innerHTML = '';
   document.getElementById("shapeButtonsContainer").innerHTML = '';
@@ -44,9 +51,14 @@ function initialInputs(callback) {  // Retrieves the initial position from the u
   const inputSection = document.getElementById('inputSection');
   inputSection.innerHTML = `
     <p>Enter initial coordinates:</p>
-    <input type="number" id="xCoord" placeholder="X coordinate">
+    <input type="number" id="xCoord" placeholder="X coordinate" color=black>
     <input type="number" id="yCoord" placeholder="Y coordinate">
-    <button id="nextBtn">Next</button>
+    <button 
+      id="nextBtn"
+      class="w-4/5 py-2 my-2 bg-white text-black font-semibold rounded hover:bg-gray-200"
+    >
+      Next
+    </button>
   `;
 
   document.getElementById("nextBtn").addEventListener("click", () => {
@@ -60,8 +72,14 @@ function initialInputs(callback) {  // Retrieves the initial position from the u
   });
 }
 
-function createCircle() {   // Retrieves radius from user and renders a circle at a given position
-  initialInputs((x, y) => { // Initialize a callback and wait for initial coordinates
+export function createCircle() {   // Retrieves radius from user and renders a circle at a given position
+  setInstructions(`
+    <ul class="list-disc list-inside space-y-1">
+      <li><strong>Circle:</strong> Enter center coords, then specify radius.</li>
+      <li>Radius in logical units (1 unit = 20px).</li>
+    </ul>
+  `);
+    initialInputs((x, y) => { // Initialize a callback and wait for initial coordinates
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
       <p>Enter the radius</p>
@@ -86,8 +104,14 @@ function createCircle() {   // Retrieves radius from user and renders a circle a
   });  
 }
 
-function createSquare() {   // Retrieves side length and draws a square with labeled corners
-  initialInputs((x, y) => { // Initialize a callback and wait for initial coordinates
+export function createSquare() {   // Retrieves side length and draws a square with labeled corners
+  setInstructions(`
+    <ul class="list-disc list-inside space-y-1">
+      <li><strong>Square:</strong> Enter lower-left corner, then side length.</li>
+      <li>Marks all four corners.</li>
+    </ul>
+  `);
+    initialInputs((x, y) => { // Initialize a callback and wait for initial coordinates
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
       <p>Enter the side length</p>
@@ -126,7 +150,13 @@ function createSquare() {   // Retrieves side length and draws a square with lab
   });  
 }
 
-function createRectangle() {  // Retrieves width and height and renders a rectangle
+export function createRectangle() {  // Retrieves width and height and renders a rectangle
+  setInstructions(`
+    <ul class="list-disc list-inside space-y-1">
+      <li><strong>Rectangle:</strong> Enter start corner, then width &amp; height.</li>
+      <li>Width/height in logical units (1 unit = 20px).</li>
+    </ul>
+  `);
   initialInputs((x, y) => {
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
@@ -154,19 +184,31 @@ function createRectangle() {  // Retrieves width and height and renders a rectan
   });
 }
 
-function createPoint() {    // Draws a point using the initial coordinates
-  initialInputs((x, y) => { // Initialize a callback and wait for initial coordinates
-    let ctx = document.getElementById("canvas").getContext("2d");
-    [x, y] = transformCoords(x, y);
+export function createPoint() {    // Draws a point using the initial coordinates
+  setInstructions(`
+    <ul class="list-disc list-inside space-y-1">
+      <li><strong>Point:</strong> Enter X and Y to place a point.</li>
+      <li>Coordinates map 1 unit → 20px.</li>
+    </ul>
+  `);
+  initialInputs((x, y) => {
+    const ctx = document.getElementById("canvas").getContext("2d");
+    const [px, py] = transformCoords(x, y);
     ctx.fillStyle = "black";
     ctx.beginPath();
-    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.arc(px, py, 3, 0, Math.PI * 2);
     ctx.fill();
   });  
 }
 
-function createLine() {   // Retrieves a second point and draws a line from initial to second point
-  initialInputs((x1, y1) => {
+export function createLine() {   // Retrieves a second point and draws a line from initial to second point
+  setInstructions(`
+    <ul class="list-disc list-inside space-y-1">
+      <li><strong>Line:</strong> First pick the start point, then the end point.</li>
+      <li>Endpoints are marked with dots.</li>
+    </ul>
+  `);
+    initialInputs((x1, y1) => {
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
       <p>Enter the second point for the line:</p>
@@ -205,7 +247,13 @@ function createLine() {   // Retrieves a second point and draws a line from init
   });
 }
 
-function chooseTriangle() {   // Displays triangle type options for the user to select from
+export function chooseTriangle() {   // Displays triangle type options for the user to select from
+  setInstructions(`
+    <ul class="list-disc list-inside space-y-1">
+      <li><strong>Triangle:</strong> Choose equilateral, isosceles, or scalene.</li>
+      <li>Follow prompts for lengths or vertices.</li>
+    </ul>
+  `);
   const inputSection = document.getElementById('inputSection');
   inputSection.innerHTML = `<p>Choose the type of triangle you'd like to create</p>`;
 
@@ -226,7 +274,13 @@ function chooseTriangle() {   // Displays triangle type options for the user to 
 }
 
 function equilateralTriangle() {  // Creates an equilateral triangle based on one point and a side length
-  initialInputs((x, y) => {
+  setInstructions(`
+    <ul class="list-disc list-inside space-y-1">
+      <li><strong>Equilateral Triangle:</strong> Enter one vertex, then side length.</li>
+      <li>Height = (√3 / 2) × side.</li>
+    </ul>
+  `);
+    initialInputs((x, y) => {
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
       <p>Enter side length:</p>
@@ -257,7 +311,13 @@ function equilateralTriangle() {  // Creates an equilateral triangle based on on
 }
 
 function isoscelesTriangle() {  // Creates an isosceles triangle from one base point, a base length, and height
-  initialInputs((x, y) => {
+  setInstructions(`
+    <ul class="list-disc list-inside space-y-1">
+      <li><strong>Isosceles Triangle:</strong> Enter base start, then base &amp; height.</li>
+      <li>Apex is centered above base.</li>
+    </ul>
+  `);
+    initialInputs((x, y) => {
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
       <p>Enter base and height:</p>
@@ -289,7 +349,13 @@ function isoscelesTriangle() {  // Creates an isosceles triangle from one base p
 }
 
 function scaleneTriangle() {  // Creates a scalene triangle by collecting 3 separate vertices from user input
-  initialInputs((x1, y1) => {
+  setInstructions(`
+    <ul class="list-disc list-inside space-y-1">
+      <li><strong>Scalene Triangle:</strong> Enter three distinct vertices.</li>
+      <li>All sides may differ.</li>
+    </ul>
+  `);
+    initialInputs((x1, y1) => {
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
       <p>Enter two more points for the triangle:</p>
