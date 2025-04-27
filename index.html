@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mathematics in 3D</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> <!-- NEW: Plotly library -->
+  <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script> <!-- Plotly CDN -->
 </head>
 <body class="flex justify-center items-center h-screen m-0 font-sans bg-gray-100">
 
   <div class="flex w-[90%] h-[80vh] border-2 border-black bg-white shadow-lg rounded-lg overflow-hidden">
-    <!-- Sidebar Section -->
+    
+    <!-- Sidebar Section (Left) -->
     <div class="w-[25%] bg-[#c47c3d] p-5 flex flex-col items-center">
       <h1 class="text-2xl font-bold mb-4 text-white text-center">Welcome to Mathematics in 3D!</h1>
 
@@ -30,19 +31,12 @@
         <button onclick="createRectangle()" class="py-2 bg-white rounded">Rectangle</button>
       </div>
 
-      <!-- 3D Shape Buttons -->
+      <!-- 3D Shape Buttons (NEW) -->
       <div id="shapeButtons3D" class="grid grid-cols-1 w-full text-center mb-6 hidden">
-        <!-- Canvas-based 3D -->
-        <button onclick="drawCube()" class="py-2 bg-white rounded mb-2">Canvas Cube</button>
-        <button onclick="drawPyramid()" class="py-2 bg-white rounded mb-2">Canvas Pyramid</button>
-        <button onclick="drawSphere()" class="py-2 bg-white rounded mb-2">Canvas Sphere</button>
-        <button onclick="drawPrism()" class="py-2 bg-white rounded mb-4">Canvas Prism</button>
-
-        <!-- Plotly-based 3D -->
-        <button onclick="plotlyCube()" class="py-2 bg-blue-600 text-white rounded mb-2 hover:bg-blue-700">3D Cube</button>
-        <button onclick="plotlyPyramid()" class="py-2 bg-blue-600 text-white rounded mb-2 hover:bg-blue-700">3D Pyramid</button>
-        <button onclick="plotlySphere()" class="py-2 bg-blue-600 text-white rounded mb-2 hover:bg-blue-700">3D Sphere</button>
-        <button onclick="plotlyRectangularPrism()" class="py-2 bg-blue-600 text-white rounded hover:bg-blue-700">3D Prism</button>
+        <button onclick="showCubeInput()" class="py-2 bg-white rounded mb-2">Cube</button>
+        <button onclick="showPyramidInput()" class="py-2 bg-white rounded mb-2">Pyramid</button>
+        <button onclick="showSphereInput()" class="py-2 bg-white rounded mb-2">Sphere</button>
+        <button onclick="showPrismInput()" class="py-2 bg-white rounded">Prism</button>
       </div>
 
       <!-- Input Fields for Shape Parameters -->
@@ -54,25 +48,28 @@
       </button>
     </div>
 
-    <!-- Canvas Section -->
+    <!-- Canvas Section (Center) -->
     <div class="flex-1 flex justify-center items-center relative">
       <canvas id="canvas" width="1000" height="1000"
               class="border border-black w-[700px] h-[700px]"></canvas>
-      <div id="plot3d" class="hidden w-[700px] h-[700px]"></div>
+      <div id="plot3d" class="hidden w-[700px] h-[700px]"></div> <!-- NEW plot3d div -->
     </div>
 
-    <!-- Instruction Panel -->
+    <!-- Instruction Panel (Right) -->
     <div id="instructions" class="w-[25%] p-6 bg-gray-50 border-l border-gray-300 overflow-y-auto">
-        <h2 class="text-xl font-semibold mb-4 text-gray-800">How to Use</h2>
-        <div id="instructionContent" class="text-gray-700 text-sm leading-relaxed"></div>
+      <h2 class="text-xl font-semibold mb-4 text-gray-800">How to Use</h2>
+      <div id="instructionContent" class="text-gray-700 text-sm leading-relaxed"></div>
     </div>
+
   </div>
 
+  <!-- About Page Button -->
   <button onclick="window.location.href='about.html'"
           class="absolute top-4 right-4 bg-gray-800 text-white py-1 px-3 rounded hover:bg-gray-700">
     Go to About page
   </button>
 
+  <!-- Scripts -->
   <script type="module" src="Main.js"></script>
 </body>
 </html>

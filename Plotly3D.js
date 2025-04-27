@@ -1,96 +1,157 @@
 // Plotly3D.js
 
-export function plotlyCube() {
-    showPlotly();
-    const size = 1.5;
-    const v = [
-        [-size,-size,-size],[size,-size,-size],[size,size,-size],[-size,size,-size],
-        [-size,-size,size],[size,-size,size],[size,size,size],[-size,size,size]
-    ];
-    const f = [[0,1,2,3],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]];
-    plotMesh(v, f, 'lightblue');
-}
-
-export function plotlyPyramid() {
-    showPlotly();
-    const size = 1.5;
-    const v = [
-        [-size, -size, 0],
-        [size, -size, 0],
-        [size, size, 0],
-        [-size, size, 0],
-        [0, 0, size * 1.5]
-    ];
-    const f = [[0,1,4],[1,2,4],[2,3,4],[3,0,4],[0,1,2,3]];
-    plotMesh(v, f, 'lightcoral');
-}
-
-export function plotlySphere() {
-    showPlotly();
-    const radius = 1.5;
-    let u = [], v = [];
-    for (let i = 0; i < 30; i++) {
-        u.push(i * Math.PI / 30);
-        v.push(i * 2 * Math.PI / 30);
-    }
-    let x = [], y = [], z = [];
-    for (let i = 0; i < u.length; i++) {
-        let rowX = [], rowY = [], rowZ = [];
-        for (let j = 0; j < v.length; j++) {
-            rowX.push(radius * Math.sin(u[i]) * Math.cos(v[j]));
-            rowY.push(radius * Math.sin(u[i]) * Math.sin(v[j]));
-            rowZ.push(radius * Math.cos(u[i]));
-        }
-        x.push(rowX);
-        y.push(rowY);
-        z.push(rowZ);
-    }
-    Plotly.newPlot('plot3d', [{
-        type: 'surface',
-        x, y, z,
-        opacity: 0.8
-    }]);
-}
-
-export function plotlyRectangularPrism() {
-    showPlotly();
-    const w = 1, h = 2, d = 0.5;
-    const v = [
-        [-w,-h,-d],[w,-h,-d],[w,h,-d],[-w,h,-d],
-        [-w,-h,d],[w,-h,d],[w,h,d],[-w,h,d]
-    ];
-    const f = [[0,1,2,3],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]];
-    plotMesh(v, f, 'orange');
-}
-
-function plotMesh(vertices, faces, color) {
-    const x=[], y=[], z=[], i=[], j=[], k=[];
-
-    faces.forEach(face => {
-        if (face.length === 3) {
-            i.push(face[0]); j.push(face[1]); k.push(face[2]);
-        } else if (face.length === 4) {
-            i.push(face[0]); j.push(face[1]); k.push(face[2]);
-            i.push(face[0]); j.push(face[2]); k.push(face[3]);
-        }
-    });
-
-    vertices.forEach(vtx => {
-        x.push(vtx[0]);
-        y.push(vtx[1]);
-        z.push(vtx[2]);
-    });
-
-    Plotly.newPlot('plot3d', [{
-        type: 'mesh3d',
-        x, y, z,
-        i, j, k,
-        opacity: 0.7,
-        color: color
-    }]);
-}
-
-function showPlotly() {
+function showPlotlyDiv() {
     document.getElementById('canvas').classList.add('hidden');
     document.getElementById('plot3d').classList.remove('hidden');
-}
+  }
+  
+  // --- Helper to plot any 3D mesh --- //
+  function plotMesh(x, y, z, faces, color) {
+    showPlotlyDiv();
+  
+    const mesh = {
+      type: 'mesh3d',
+      x: x,
+      y: y,
+      z: z,
+      i: faces.map(f => f[0]),
+      j: faces.map(f => f[1]),
+      k: faces.map(f => f[2]),
+      opacity: 0.5,
+      color: color
+    };
+  
+    const layout = {
+      autosize: true,
+      margin: { l: 0, r: 0, b: 0, t: 0 },
+      scene: { aspectmode: "cube" }
+    };
+  
+    Plotly.newPlot('plot3d', [mesh], layout);
+  }
+  
+  // --- Cube --- //
+  export function plotlyCube(x, y, z, size) {
+    showPlotlyDiv();
+  
+    const v = [
+      [x - size/2, y - size/2, z - size/2],
+      [x + size/2, y - size/2, z - size/2],
+      [x + size/2, y + size/2, z - size/2],
+      [x - size/2, y + size/2, z - size/2],
+      [x - size/2, y - size/2, z + size/2],
+      [x + size/2, y - size/2, z + size/2],
+      [x + size/2, y + size/2, z + size/2],
+      [x - size/2, y + size/2, z + size/2],
+    ];
+  
+    const faces = [
+      [0,1,2], [0,2,3],
+      [4,5,6], [4,6,7],
+      [0,1,5], [0,5,4],
+      [1,2,6], [1,6,5],
+      [2,3,7], [2,7,6],
+      [3,0,4], [3,4,7],
+    ];
+  
+    plotMesh(
+      v.map(p => p[0]),
+      v.map(p => p[1]),
+      v.map(p => p[2]),
+      faces,
+      'lightblue'
+    );
+  }
+  
+  // --- Pyramid --- //
+  export function plotlyPyramid(x, y, z, size) {
+    showPlotlyDiv();
+  
+    const v = [
+      [x - size/2, y - size/2, z],
+      [x + size/2, y - size/2, z],
+      [x + size/2, y + size/2, z],
+      [x - size/2, y + size/2, z],
+      [x, y, z + size],
+    ];
+  
+    const faces = [
+      [0,1,2], [0,2,3],
+      [0,1,4], [1,2,4],
+      [2,3,4], [3,0,4]
+    ];
+  
+    plotMesh(
+      v.map(p => p[0]),
+      v.map(p => p[1]),
+      v.map(p => p[2]),
+      faces,
+      'plum'
+    );
+  }
+  
+  // --- Sphere --- //
+  export function plotlySphere(x, y, z, r) {
+    showPlotlyDiv();
+  
+    const theta = [];
+    const phi = [];
+    const steps = 20;
+    for (let i = 0; i <= steps; i++) {
+      theta.push(i * Math.PI / steps);
+      phi.push(i * 2 * Math.PI / steps);
+    }
+  
+    const spherePoints = [];
+    for (let i = 0; i <= steps; i++) {
+      for (let j = 0; j <= steps; j++) {
+        const xp = x + r * Math.sin(theta[i]) * Math.cos(phi[j]);
+        const yp = y + r * Math.sin(theta[i]) * Math.sin(phi[j]);
+        const zp = z + r * Math.cos(theta[i]);
+        spherePoints.push([xp, yp, zp]);
+      }
+    }
+  
+    Plotly.newPlot('plot3d', [{
+      type: 'mesh3d',
+      x: spherePoints.map(p => p[0]),
+      y: spherePoints.map(p => p[1]),
+      z: spherePoints.map(p => p[2]),
+      opacity: 0.5,
+      color: 'skyblue'
+    }], { margin: { l: 0, r: 0, b: 0, t: 0 } });
+  }
+  
+  // --- Rectangular Prism --- //
+  export function plotlyRectangularPrism(x, y, z, size) {
+    showPlotlyDiv();
+  
+    const v = [
+      [x - size/2, y - size/2, z - size/4],
+      [x + size/2, y - size/2, z - size/4],
+      [x + size/2, y + size/2, z - size/4],
+      [x - size/2, y + size/2, z - size/4],
+      [x - size/2, y - size/2, z + size/4],
+      [x + size/2, y - size/2, z + size/4],
+      [x + size/2, y + size/2, z + size/4],
+      [x - size/2, y + size/2, z + size/4],
+    ];
+  
+    const faces = [
+      [0,1,2], [0,2,3],
+      [4,5,6], [4,6,7],
+      [0,1,5], [0,5,4],
+      [1,2,6], [1,6,5],
+      [2,3,7], [2,7,6],
+      [3,0,4], [3,4,7],
+    ];
+  
+    plotMesh(
+      v.map(p => p[0]),
+      v.map(p => p[1]),
+      v.map(p => p[2]),
+      faces,
+      'orange'
+    );
+  }
+  
