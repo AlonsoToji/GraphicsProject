@@ -7,7 +7,7 @@ function setInstructions(html) {
   if (panel) panel.innerHTML = html;
 }
 
-window.setInstructions = setInstructions;
+window.setInstructions = setInstructions; 
 
 
 function draw2DInputButtons(is2D_Displayed) {  // Pushes buttons that offer 2D rendering options

@@ -5,7 +5,7 @@ function setInstructions3D(html) {
   if (panel) panel.innerHTML = html;
 }
 
-window.setInstructions3D = setInstructions3D;
+window.setInstructions3D = setInstructions3D; 
 
 export function drawCube() {
   setInstructions3D(`
