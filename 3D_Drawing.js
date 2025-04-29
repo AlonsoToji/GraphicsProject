@@ -1,220 +1,212 @@
 // 3D_Drawing.js
 
-// Global reference
-let originX, originY, ctx, canvas;
-
-function setInstructions(html) {
+function setInstructions3D(html) {
   const panel = document.getElementById('instructionContent');
   if (panel) panel.innerHTML = html;
 }
 
-// Setup and draw 3D coordinate system + buttons
-// Initialize 3D Drawing and render shapes and axes
-export function initialize3DDrawing(is3D_Displayed) {
-  if (!is3D_Displayed) return;  // Only proceed if 3D mode is enabled
+window.setInstructions3D = setInstructions3D;
 
-  canvas = document.getElementById("canvas");
-  ctx = canvas.getContext("2d");
-
-  // Clear and re-center origin
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  originX = canvas.width / 2;
-  originY = canvas.height / 2;
-
-  // Draw the 3D grid and coordinate system
-  draw3DGrid();
-  draw3DShapeButtons();  // Draw 3D shape buttons
-}
-
-// Draw basic 3D coordinate system
-function draw3DGrid() {
-  const scale = 80;
-  const angle = Math.PI / 6;
-
-  const project3D = (x, y, z) => {
-    const px = originX + scale * (x * Math.cos(angle) - y * Math.cos(angle));
-    const py = originY - scale * (x * Math.sin(angle) + y * Math.sin(angle) - z);
-    return [px, py];
-  };
-
-  function drawAxis(x, y, z, color, label) {
-    const [xEnd, yEnd] = project3D(x, y, z);
-    ctx.beginPath();
-    ctx.moveTo(originX, originY);
-    ctx.lineTo(xEnd, yEnd);
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(xEnd, yEnd, 5, 0, 2 * Math.PI);
-    ctx.fillStyle = color;
-    ctx.fill();
-
-    ctx.fillStyle = "black";
-    ctx.font = "16px Arial";
-    ctx.fillText(label, xEnd + 8, yEnd + 5);
-  }
-
-  drawAxis(1, 0, 0, "red", "X");
-  drawAxis(0, 1, 0, "green", "Y");
-  drawAxis(0, 0, 1, "blue", "Z");
-}
-
-// Add 3D shape buttons dynamically
-function draw3DShapeButtons() {
-  const container = document.getElementById("shapeButtons3D");
-  container.innerHTML = ''; // Clear any previous buttons
-
-  const buttons = [
-    { label: "Cube", handler: drawCube },
-    { label: "Pyramid", handler: drawPyramid },
-    { label: "Sphere", handler: drawSphere },
-    { label: "Prism", handler: drawPrism },
-  ];
-
-  buttons.forEach(({ label, handler }) => {
-    const btn = document.createElement("button");
-    btn.textContent = label;
-    btn.classList.add("w-4/5", "py-2", "my-2", "text-sm", "bg-blue-600", "text-white", "font-semibold", "rounded", "hover:bg-blue-700");
-    btn.addEventListener("click", handler);
-    container.appendChild(btn);
-  });
-}
-
-// ---- Shape Drawing Helpers ---- //
-
-function project3D(x, y, z) {
-  const scale = 80;
-  const angle = Math.PI / 6;
-  const px = originX + scale * (x * Math.cos(angle) - y * Math.cos(angle));
-  const py = originY - scale * (x * Math.sin(angle) + y * Math.sin(angle) - z);
-  return [px, py];
-}
-
-// Draw cube centered at origin
 export function drawCube() {
-  setInstructions(`
+  setInstructions3D(`
     <ul class="list-disc list-inside space-y-1">
-      <li><strong>Cube</strong> is centered at origin.</li>
-      <li>Each side has length 2 units in 3D space.</li>
-      <li>Edges are drawn using axonometric projection.</li>
+      <li><strong>Cube:</strong> Enter center coords, then specify radius.</li>
+      <li>Radius in logical units (1 unit = 20px).</li>
     </ul>
   `);
+  const inputSection = document.getElementById('inputSection');
+  inputSection.innerHTML = `
+      <p class="mb-2 font-semibold">Cube: Enter center coordinates and side length</p>
+      <input type="number" id="xCoord" placeholder="X" class="border rounded p-1 m-1">
+      <input type="number" id="yCoord" placeholder="Y" class="border rounded p-1 m-1">
+      <input type="number" id="zCoord" placeholder="Z" class="border rounded p-1 m-1">
+      <input type="number" id="size" placeholder="Side Length" class="border rounded p-1 m-1">
+      <button id="drawCubeBtn" class="bg-blue-600 text-white p-2 rounded mt-3 hover:bg-blue-700">Draw Cube</button>
+  `;
 
-  const size = 1;
-  const corners = [
-    [-1, -1, -1],
-    [1, -1, -1],
-    [1, 1, -1],
-    [-1, 1, -1],
-    [-1, -1, 1],
-    [1, -1, 1],
-    [1, 1, 1],
-    [-1, 1, 1],
-  ];
-
-  const edges = [
-    [0, 1], [1, 2], [2, 3], [3, 0],
-    [4, 5], [5, 6], [6, 7], [7, 4],
-    [0, 4], [1, 5], [2, 6], [3, 7],
-  ];
-
-  ctx.strokeStyle = "black";
-  ctx.lineWidth = 2;
-
-  edges.forEach(([i, j]) => {
-    const [x1, y1] = project3D(...corners[i]);
-    const [x2, y2] = project3D(...corners[j]);
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
-  });
+  document.getElementById('drawCubeBtn').addEventListener('click', plotCube);
 }
 
-// Draw a pyramid with square base
-export function drawPyramid() {
-  setInstructions(`
-    <ul class="list-disc list-inside space-y-1">
-      <li><strong>Pyramid:</strong> Square base on XY-plane (2×2 units), apex at +1.5 units in Z.</li>
-      <li>Edges connect each base corner to the apex.</li>
-    </ul>
-  `);
+function plotCube() {
+  let x = +document.getElementById("xCoord").value;
+  let y = +document.getElementById("yCoord").value;
+  let z = +document.getElementById("zCoord").value;
+  let size = +document.getElementById("size").value / 2;
 
-  const base = [
-    [-1, -1, 0],
-    [1, -1, 0],
-    [1, 1, 0],
-    [-1, 1, 0],
+  let v = [
+      [x - size, y - size, z - size],
+      [x + size, y - size, z - size],
+      [x + size, y + size, z - size],
+      [x - size, y + size, z - size],
+      [x - size, y - size, z + size],
+      [x + size, y - size, z + size],
+      [x + size, y + size, z + size],
+      [x - size, y + size, z + size]
   ];
-  const apex = [0, 0, 1.5];
+  let f = [[0,1,2,3],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]];
+  plotMesh(v, f, 'lightblue');
+}
 
-  ctx.strokeStyle = "purple";
-  ctx.lineWidth = 2;
+export function drawPyramid() {
+  setInstructions3D(`
+  <ul class="list-disc list-inside space-y-1">
+    <li><strong>Pyramid:</strong> Enter center coords, then specify radius.</li>
+    <li>Radius in logical units (1 unit = 20px).</li>
+  </ul>
+`);
+  const inputSection = document.getElementById('inputSection');
+  inputSection.innerHTML = `
+      <p class="mb-2 font-semibold">Pyramid: Enter center coordinates, base size, and height</p>
+      <input type="number" id="xCoord" placeholder="X" class="border rounded p-1 m-1">
+      <input type="number" id="yCoord" placeholder="Y" class="border rounded p-1 m-1">
+      <input type="number" id="zCoord" placeholder="Z" class="border rounded p-1 m-1">
+      <input type="number" id="base" placeholder="Base Size" class="border rounded p-1 m-1">
+      <input type="number" id="height" placeholder="Height" class="border rounded p-1 m-1">
+      <button id="drawPyramidBtn" class="bg-blue-600 text-white p-2 rounded mt-3 hover:bg-blue-700">Draw Pyramid</button>
+  `;
 
-  // Base square
-  for (let i = 0; i < 4; i++) {
-    const [x1, y1] = project3D(...base[i]);
-    const [x2, y2] = project3D(...base[(i + 1) % 4]);
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
+  document.getElementById('drawPyramidBtn').addEventListener('click', plotPyramid);
+}
+
+function plotPyramid() {
+  
+  let x = +document.getElementById("xCoord").value;
+  let y = +document.getElementById("yCoord").value;
+  let z = +document.getElementById("zCoord").value;
+  let base = +document.getElementById("base").value / 2;
+  let height = +document.getElementById("height").value;
+
+  let v = [
+      [x - base, y - base, z],
+      [x + base, y - base, z],
+      [x + base, y + base, z],
+      [x - base, y + base, z],
+      [x, y, z + height]
+  ];
+  let f = [[0,1,4],[1,2,4],[2,3,4],[3,0,4],[0,1,2,3]];
+  plotMesh(v, f, 'lightcoral');
+}
+
+export function drawSphere() {
+  setInstructions3D(`
+  <ul class="list-disc list-inside space-y-1">
+    <li><strong>Sphere:</strong> Enter center coords, then specify radius.</li>
+    <li>Radius in logical units (1 unit = 20px).</li>
+  </ul>
+`);
+  const inputSection = document.getElementById('inputSection');
+  inputSection.innerHTML = `
+      <p class="mb-2 font-semibold">Sphere: Enter center coordinates and radius</p>
+      <input type="number" id="xCoord" placeholder="X" class="border rounded p-1 m-1">
+      <input type="number" id="yCoord" placeholder="Y" class="border rounded p-1 m-1">
+      <input type="number" id="zCoord" placeholder="Z" class="border rounded p-1 m-1">
+      <input type="number" id="radius" placeholder="Radius" class="border rounded p-1 m-1">
+      <button id="drawSphereBtn" class="bg-blue-600 text-white p-2 rounded mt-3 hover:bg-blue-700">Draw Sphere</button>
+  `;
+
+  document.getElementById('drawSphereBtn').addEventListener('click', plotSphere);
+}
+
+function plotSphere() {
+  let x0 = +document.getElementById("xCoord").value;
+  let y0 = +document.getElementById("yCoord").value;
+  let z0 = +document.getElementById("zCoord").value;
+  let r = +document.getElementById("radius").value;
+
+  let u = [], v = [];
+  for (let i = 0; i < 50; i++) {
+      u.push(i * Math.PI / 25);
+      v.push(i * 2 * Math.PI / 50);
   }
 
-  // Sides to apex
-  base.forEach(corner => {
-    const [x1, y1] = project3D(...corner);
-    const [x2, y2] = project3D(...apex);
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
-  });
-}
+  let x = [], y = [], z = [];
+  for (let i = 0; i < u.length; i++) {
+      let rowX = [], rowY = [], rowZ = [];
+      for (let j = 0; j < v.length; j++) {
+          rowX.push(x0 + r * Math.sin(u[i]) * Math.cos(v[j]));
+          rowY.push(y0 + r * Math.sin(u[i]) * Math.sin(v[j]));
+          rowZ.push(z0 + r * Math.cos(u[i]));
+      }
+      x.push(rowX);
+      y.push(rowY);
+      z.push(rowZ);
+  }
 
-// Approximate sphere as a circle for now
-export function drawSphere() {
-  setInstructions(`
-    <ul class="list-disc list-inside space-y-1">
-      <li><strong>Sphere:</strong> Rendered as a circle + equatorial ellipse.</li>
-      <li>Radius = 1 unit.</li>
-    </ul>
-  `);
-  const radius = 1;
-  const [cx, cy] = project3D(0, 0, 0);
-  ctx.beginPath();
-  ctx.arc(cx, cy, radius * 80, 0, 2 * Math.PI);
-  ctx.strokeStyle = "teal";
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  // Add equator
-  ctx.beginPath();
-  ctx.ellipse(cx, cy, radius * 80, radius * 20, 0, 0, 2 * Math.PI);
-  ctx.strokeStyle = "gray";
-  ctx.stroke();
+  Plotly.newPlot('plot3d', [{
+      type: 'surface',
+      x, y, z,
+      opacity: 0.8,
+      colorscale: 'Viridis'
+  }]);
 }
 
 export function drawPrism() {
-  setInstructions(`
-    <ul class="list-disc list-inside space-y-1">
-      <li><strong>Prism:</strong> Rendered as a circle + equatorial ellipse.</li>
-      <li>Radius = 1 unit.</li>
-    </ul>
-  `);
-  const radius = 1;
-  const [cx, cy] = project3D(0, 0, 0);
-  ctx.beginPath();
-  ctx.arc(cx, cy, radius * 80, 0, 2 * Math.PI);
-  ctx.strokeStyle = "teal";
-  ctx.lineWidth = 2;
-  ctx.stroke();
+  setInstructions3D(`
+  <ul class="list-disc list-inside space-y-1">
+    <li><strong>Prism:</strong> Enter center coords, then specify radius.</li>
+    <li>Radius in logical units (1 unit = 20px).</li>
+  </ul>
+`);
+  const inputSection = document.getElementById('inputSection');
+  inputSection.innerHTML = `
+      <p class="mb-2 font-semibold">Rectangular Prism: Enter center coordinates, width, height, and depth</p>
+      <input type="number" id="xCoord" placeholder="X" class="border rounded p-1 m-1">
+      <input type="number" id="yCoord" placeholder="Y" class="border rounded p-1 m-1">
+      <input type="number" id="zCoord" placeholder="Z" class="border rounded p-1 m-1">
+      <input type="number" id="width" placeholder="Width" class="border rounded p-1 m-1">
+      <input type="number" id="height" placeholder="Height" class="border rounded p-1 m-1">
+      <input type="number" id="depth" placeholder="Depth" class="border rounded p-1 m-1">
+      <button id="drawPrismBtn" class="bg-blue-600 text-white p-2 rounded mt-3 hover:bg-blue-700">Draw Prism</button>
+  `;
 
-  // Add equator
-  ctx.beginPath();
-  ctx.ellipse(cx, cy, radius * 80, radius * 20, 0, 0, 2 * Math.PI);
-  ctx.strokeStyle = "gray";
-  ctx.stroke();
+  document.getElementById('drawPrismBtn').addEventListener('click', plotPrism);
+}
+
+function plotPrism() {
+  let x = +document.getElementById("xCoord").value;
+  let y = +document.getElementById("yCoord").value;
+  let z = +document.getElementById("zCoord").value;
+  let w = +document.getElementById("width").value / 2;
+  let h = +document.getElementById("height").value / 2;
+  let d = +document.getElementById("depth").value / 2;
+
+  let v = [
+      [x - w, y - h, z - d],
+      [x + w, y - h, z - d],
+      [x + w, y + h, z - d],
+      [x - w, y + h, z - d],
+      [x - w, y - h, z + d],
+      [x + w, y - h, z + d],
+      [x + w, y + h, z + d],
+      [x - w, y + h, z + d]
+  ];
+  let f = [[0,1,2,3],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]];
+  plotMesh(v, f, 'orange');
+}
+
+function plotMesh(vertices, faces, color) {
+  let x = [], y = [], z = [], i = [], j = [], k = [];
+
+  faces.forEach((face) => {
+      if (face.length === 3) {
+          i.push(face[0]); j.push(face[1]); k.push(face[2]);
+      } else if (face.length === 4) {
+          i.push(face[0]); j.push(face[1]); k.push(face[2]);
+          i.push(face[0]); j.push(face[2]); k.push(face[3]);
+      }
+  });
+
+  vertices.forEach(v => {
+      x.push(v[0]);
+      y.push(v[1]);
+      z.push(v[2]);
+  });
+
+  Plotly.newPlot('plot3d', [{
+      type: 'mesh3d',
+      x, y, z,
+      i, j, k,
+      opacity: 0.7,
+      color: color
+  }]);
 }

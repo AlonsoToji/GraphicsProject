@@ -5,66 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mathematics in 3D</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
+
 <body class="flex justify-center items-center h-screen m-0 font-sans bg-gray-100">
 
-  <div class="flex w-[90%] h-[80vh] border-2 border-black bg-white shadow-lg rounded-lg overflow-hidden">
-    <!-- Sidebar Section (Left) -->
-    <div class="w-[25%] bg-[#c47c3d] p-5 flex flex-col items-center">
-      <h1 class="text-2xl font-bold mb-4 text-white text-center">Welcome to Mathematics in 3D!</h1>
+<div class="flex w-[90%] h-[80vh] border-2 border-black bg-white shadow-lg rounded-lg overflow-hidden">
 
-      <!-- Mode Toggle Buttons -->
-      <div class="grid grid-cols-2 gap-4 w-full text-center mb-6">
-        <button id="btn2D" class="w-[80%] font-bold bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">2D</button>
-        <button id="btn3D" class="w-[80%] font-bold bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">3D</button>
-      </div>
+  <!-- Sidebar (left) -->
+  <div class="w-[25%] bg-[#c47c3d] p-5 flex flex-col items-center overflow-y-auto">
+    <h1 class="text-2xl font-bold mb-4 text-white text-center">Welcome to Mathematics in 3D!</h1>
 
-      <!-- *** 2D Shape Buttons (HTML instead of JS injection) *** -->
-      <div id="shapeButtons2D" class="grid grid-cols-2 gap-2 w-full text-center mb-6 hidden">
-        <button onclick="createPoint()" class="py-2 bg-white rounded">Point</button>
-        <button onclick="createLine()" class="py-2 bg-white rounded">Line</button>
-        <button onclick="chooseTriangle()" class="py-2 bg-white rounded">Triangle</button>
-        <button onclick="createCircle()" class="py-2 bg-white rounded">Circle</button>
-        <button onclick="createSquare()" class="py-2 bg-white rounded">Square</button>
-        <button onclick="createRectangle()" class="py-2 bg-white rounded">Rectangle</button>
-      </div>
-
-      <!-- *** 3D Shape Buttons (HTML instead of JS injection) *** -->
-      <div id="shapeButtons3D" class="grid grid-cols-1 w-full text-center mb-6 hidden">
-        <button onclick="drawCube()"      class="py-2 bg-white rounded mb-2">Cube</button>
-        <button onclick="drawPyramid()"   class="py-2 bg-white rounded mb-2">Pyramid</button>
-        <button onclick="drawSphere()"    class="py-2 bg-white rounded mb-2">Sphere</button>
-        <button onclick="drawPrism()"    class="py-2 bg-white rounded">Prism</button>
-      </div>
-
-      <!-- Input Fields for Shape Parameters -->
-      <div id="inputSection" class="w-full"></div>
-
-      <!-- Clear Canvas Button -->
-      <button onclick="clearCanvas()" class="mt-auto bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-[50%] mt-20">
-        Clear Graph
-      </button>
+    <div class="grid grid-cols-2 gap-4 w-full text-center mb-6">
+      <button id="btn2D" class="w-[80%] font-bold bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">2D</button>
+      <button id="btn3D" class="w-[80%] font-bold bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">3D</button>
     </div>
 
-    <!-- Canvas Section (Center) -->
-    <div class="flex-1 flex justify-center items-center relative">
-      <canvas id="canvas" width="1000" height="1000"
-              class="border border-black w-[700px] h-[700px]"></canvas>
-      <div id="plot3d" class="hidden w-[700px] h-[700px]"></div>
+    <!-- 2D Shape Buttons -->
+    <div id="shapeButtons2D" class="grid grid-cols-2 gap-2 w-full text-center mb-6 hidden">
+      <button onclick="createPoint()" class="py-2 bg-white rounded">Point</button>
+      <button onclick="createLine()" class="py-2 bg-white rounded">Line</button>
+      <button onclick="chooseTriangle()" class="py-2 bg-white rounded">Triangle</button>
+      <button onclick="createCircle()" class="py-2 bg-white rounded">Circle</button>
+      <button onclick="createSquare()" class="py-2 bg-white rounded">Square</button>
+      <button onclick="createRectangle()" class="py-2 bg-white rounded">Rectangle</button>
     </div>
 
-    <!-- Instruction Panel (Right) -->
-    <div id="instructions" class="w-[25%] p-6 bg-gray-50 border-l border-gray-300 overflow-y-auto">
-        <h2 class="text-xl font-semibold mb-4 text-gray-800">How to Use</h2>
-        <div id="instructionContent" class="text-gray-700 text-sm leading-relaxed"></div>
+    <!-- 3D Shape Buttons -->
+    <div id="shapeButtons3D" class="grid grid-cols-1 w-full text-center mb-6 hidden">
+      <button onclick="drawCube()"      class="py-2 bg-white rounded mb-2">Cube</button>
+      <button onclick="drawPyramid()"   class="py-2 bg-white rounded mb-2">Pyramid</button>
+      <button onclick="drawSphere()"    class="py-2 bg-white rounded mb-2">Sphere</button>
+      <button onclick="drawPrism()"     class="py-2 bg-white rounded">Rectangular Prism</button>
     </div>
+
+    <!-- Input Fields for Shape Parameters -->
+    <div id="inputSection" class="w-full"></div>
+
+    <!-- Clear Canvas Button -->
+    <button onclick="clearCanvas()" class="mt-auto bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-[50%]">
+      Clear Graph
+    </button>
   </div>
 
-  <button onclick="window.location.href='about.html'"
-          class="absolute top-4 right-4 bg-gray-800 text-white py-1 px-3 rounded hover:bg-gray-700">
-    Go to About page
-  </button>
+  <!-- Main Canvas/Plot Area -->
+  <div class="flex-1 flex justify-center items-center relative">
+    <canvas id="canvas" width="1000" height="1000" class="border border-black w-[700px] h-[700px]"></canvas>
+    <div id="plot3d" class="hidden w-[700px] h-[700px]"></div>
+  </div>
 
-  <script type="module" src="Main.js"></script>
+  <!-- Instruction Panel (right) -->
+  <div id="instructions" class="w-[25%] p-6 bg-gray-50 border-l border-gray-300 overflow-y-auto">
+    <h2 class="text-xl font-semibold mb-4 text-gray-800">How to Use</h2>
+    <div id="instructionContent" class="text-gray-700 text-sm leading-relaxed"></div>
+  </div>
+
+</div>
+
+<script type="module" src="./Main.js"></script>
+
 </body>
 </html>

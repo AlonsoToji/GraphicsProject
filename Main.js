@@ -10,11 +10,10 @@ import {
       createRectangle
     } from './2D_Drawing.js';
 import {
-      initialize3DDrawing,
       drawCube,
       drawPyramid,
       drawSphere,
-      drawPrism
+      drawPrism 
     } from './3D_Drawing.js';
 
 // expose toggles/globals
@@ -79,6 +78,11 @@ function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawGraph();
   inputSection.innerHTML = '';
+
+  const plot3d = document.getElementById("plot3d");
+  if (plot3d) {
+    Plotly.purge(plot3d);
+  } 
 }
 
 function toggle2DMode() {
@@ -88,8 +92,9 @@ function toggle2DMode() {
 
   if (is2D) {
     shape2D.classList.remove('hidden');
-    // remove any lingering 3D buttons
     shape3D.classList.add('hidden');
+    canvas.classList.remove('hidden');
+    document.getElementById('plot3d').classList.add('hidden');
   } else {
     clear2DButtons();
     shape2D.classList.add('hidden');
@@ -103,10 +108,12 @@ function toggle3DMode() {
 
   if (is3D) {
     shape3D.classList.remove('hidden');
-    // hide 2D panel
     shape2D.classList.add('hidden');
-    initialize3DDrawing(true);
+    canvas.classList.add('hidden');
+    document.getElementById('plot3d').classList.remove('hidden');
   } else {
     shape3D.classList.add('hidden');
+    canvas.classList.remove('hidden');
+    document.getElementById('plot3d').classList.add('hidden');
   }
 }
