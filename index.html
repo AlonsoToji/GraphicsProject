@@ -16,7 +16,7 @@
   <div class="w-[25%] bg-[#c47c3d] p-5 flex flex-col items-center overflow-y-auto">
     <h1 class="text-2xl font-bold mb-4 text-white text-center">Welcome to Mathematics in 3D!</h1>
 
-    <div class="grid grid-cols-2 gap-4 w-full text-center mb-6">
+    <div class="pl-8 grid grid-cols-2 gap-4 w-full text-center mb-6">
       <button id="btn2D" class="w-[80%] font-bold bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">2D</button>
       <button id="btn3D" class="w-[80%] font-bold bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">3D</button>
     </div>
@@ -32,11 +32,11 @@
     </div>
 
     <!-- 3D Shape Buttons -->
-    <div id="shapeButtons3D" class="grid grid-cols-1 w-full text-center mb-6 hidden">
+    <div id="shapeButtons3D" class="grid grid-cols-2 gap-2 w-full text-center mb-6 hidden">
       <button onclick="drawCube()"      class="py-2 bg-white rounded mb-2">Cube</button>
       <button onclick="drawPyramid()"   class="py-2 bg-white rounded mb-2">Pyramid</button>
       <button onclick="drawSphere()"    class="py-2 bg-white rounded mb-2">Sphere</button>
-      <button onclick="drawPrism()"     class="py-2 bg-white rounded">Rectangular Prism</button>
+      <button onclick="drawPrism()"     class="py-2 bg-white rounded mb-2">Rectangular Prism</button>
     </div>
 
     <!-- Input Fields for Shape Parameters -->

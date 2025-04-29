@@ -52,10 +52,10 @@ function initialInputs(callback) {  // Retrieves the initial position from the u
   inputSection.innerHTML = `
     <p>Enter initial coordinates:</p>
     <input type="number" id="xCoord" placeholder="X coordinate" color=black>
-    <input type="number" id="yCoord" placeholder="Y coordinate">
+    <input type="number" id="yCoord" placeholder="Y coordinate" class="mb-4">
     <button 
-      id="nextBtn"
-      class="w-4/5 py-2 my-2 bg-white text-black font-semibold rounded hover:bg-gray-200"
+      id="nextBtn" 
+      class="flex justify-center mx-auto w-1/2 bg-white text-black font-semibold rounded hover:bg-gray-200"
     >
       Next
     </button>
@@ -267,7 +267,7 @@ export function chooseTriangle() {   // Displays triangle type options for the u
   buttons.forEach(({ label, handler }) => {
     const btn = document.createElement("button");
     btn.textContent = label;
-    btn.style.width = "70%";
+    btn.className = "w-3/4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors mb-2";
     btn.addEventListener("click", handler);
     inputSection.appendChild(btn);
   });
