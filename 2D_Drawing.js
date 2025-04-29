@@ -213,8 +213,13 @@ export function createLine() {   // Retrieves a second point and draws a line fr
     inputSection.innerHTML = `
       <p>Enter the second point for the line:</p>
       <input type="number" id="x2" placeholder="X2">
-      <input type="number" id="y2" placeholder="Y2">
-      <button id="drawBtn">Draw</button>
+      <input type="number" id="y2" placeholder="Y2" class="mb-4">
+      <button 
+        id="drawBtn"
+        class="flex justify-center mx-auto w-1/2 bg-white text-black font-semibold rounded hover:bg-gray-200"
+        >
+        Draw
+      </button>
     `;
 
     // Waits for the draw button to be clicked to start drawing
