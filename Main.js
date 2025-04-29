@@ -42,6 +42,11 @@ const shape2D= document.getElementById('shapeButtons2D');
 const shape3D= document.getElementById('shapeButtons3D');
 const inputSection = document.getElementById('inputSection');
 
+function setInstructions(html) {
+  const panel = document.getElementById('instructionContent');
+  if (panel) panel.innerHTML = html; 
+}
+
 let is2D = false;
 let is3D = false;
 
@@ -73,6 +78,18 @@ function drawGraph() {
   ctx.moveTo(0, height/2);
   ctx.lineTo(width, height/2);
   ctx.stroke();
+
+  setInstructions(`
+    <ul class="list-disc list-inside text-gray-700 space-y-2 text-sm leading-relaxed">
+        <li>Click <strong>2D</strong> to open 2D shape options.</li>
+        <li>Select a shape from the list (e.g., Circle, Line, Triangle).</li>
+        <li>Enter the required coordinates and dimensions in the input fields that appear.</li>
+        <li>Click <strong>Draw</strong> to render the shape on the graph.</li>
+        <li>Click <strong>Clear Graph</strong> to reset the canvas and remove all drawings.</li>
+        <li>Switch to <strong>3D</strong> mode to visualize in 3D (WIP if not yet implemented).</li>
+      </ul>
+  `);
+
 }
 
 function clearCanvas() {
@@ -90,6 +107,7 @@ function toggle2DMode() {
     shape2D.classList.remove('hidden');
     // remove any lingering 3D buttons
     shape3D.classList.add('hidden');
+    
   } else {
     clear2DButtons();
     shape2D.classList.add('hidden');

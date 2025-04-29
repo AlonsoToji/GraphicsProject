@@ -5,7 +5,7 @@ let originX, originY, ctx, canvas;
 
 function setInstructions(html) {
   const panel = document.getElementById('instructionContent');
-  if (panel) panel.innerHTML = html;
+  if (panel) panel.innerHTML = html; 
 }
 
 // Setup and draw 3D coordinate system + buttons
