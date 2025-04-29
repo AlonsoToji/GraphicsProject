@@ -50,15 +50,10 @@ function transformCoords(x, y) {  // Converts logical (x, y) to pixel coordinate
 function initialInputs(callback) {  // Retrieves the initial position from the user and runs the callback with those values
   const inputSection = document.getElementById('inputSection');
   inputSection.innerHTML = `
-    <p>Enter initial coordinates:</p>
-    <input type="number" id="xCoord" placeholder="X coordinate" color=black>
-    <input type="number" id="yCoord" placeholder="Y coordinate">
-    <button 
-      id="nextBtn"
-      class="w-4/5 py-2 my-2 bg-white text-black font-semibold rounded hover:bg-gray-200"
-    >
-      Next
-    </button>
+   <p style="text-align: center;"><strong>Enter initial coordinates:</strong></p><br>
+    <input type="number" style="margin-left: 40px;" id="xCoord" placeholder=" X coordinate">
+    <input type="number" style="margin-left: 40px;" id="yCoord" placeholder=" Y coordinate"><br><br>
+    <button id="nextBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px;" ><strong>Next</strong></button>
   `;
 
   document.getElementById("nextBtn").addEventListener("click", () => {
@@ -82,9 +77,9 @@ export function createCircle() {   // Retrieves radius from user and renders a c
     initialInputs((x, y) => { // Initialize a callback and wait for initial coordinates
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
-      <p>Enter the radius</p>
-      <input type="number" id="radius" placeholder="Radius">
-      <button id="drawBtn">Draw</button>
+      <p style="font-weight: bold; margin-left: 65px; margin-bottom: 15px;">Enter the radius</p>
+      <input type="number" id="radius" class="ml-10 h-30" placeholder=" Radius">
+      <button id="drawBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px; margin-top: 20px;" ><strong>Draw</strong></button>
     `;
 
     // Waits for the draw button to be clicked to start drawing
@@ -114,9 +109,9 @@ export function createSquare() {   // Retrieves side length and draws a square w
     initialInputs((x, y) => { // Initialize a callback and wait for initial coordinates
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
-      <p>Enter the side length</p>
-      <input type="number" id="sideLength" placeholder="Side Lengths">
-      <button id="drawBtn">Draw</button>
+      <p style="font-weight: bold; margin-left: 50px; margin-bottom: 10px;">Enter the side length</p>
+      <input type="number" id="sideLength" class="ml-10 h-30" placeholder=" Side Length"><br>
+      <button id="drawBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px; margin-top: 20px;"><strong>Draw</strong></button>
     `;
 
     // Waits for the draw button to be clicked to start drawing
@@ -160,10 +155,10 @@ export function createRectangle() {  // Retrieves width and height and renders a
   initialInputs((x, y) => {
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
-      <p>Enter width and height of the rectangle:</p>
-      <input type="number" id="width" placeholder="Width">
-      <input type="number" id="height" placeholder="Height">
-      <button id="drawBtn">Draw</button>
+      <p style="font-weight: bold; margin-bottom: 10px; text-align: center;">Enter width and height of the rectangle:</p>
+      <input type="number" id="width" class="ml-10 h-30" placeholder=" Width">
+      <input type="number" id="height" class="ml-10 h-30" placeholder=" Height">
+      <button id="drawBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px; margin-top: 20px;"><strong>Draw</strong></button>
     `;
 
     // Waits for the draw button to be clicked to start drawing
@@ -211,10 +206,10 @@ export function createLine() {   // Retrieves a second point and draws a line fr
     initialInputs((x1, y1) => {
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
-      <p>Enter the second point for the line:</p>
-      <input type="number" id="x2" placeholder="X2">
-      <input type="number" id="y2" placeholder="Y2">
-      <button id="drawBtn">Draw</button>
+      <p style="font-weight: bold; margin-bottom: 10px; text-align: center;">Enter the second point for the line:</p>
+      <input type="number" id="x2" class="ml-10 h-30" placeholder=" X2">
+      <input type="number" id="y2" class="ml-10 h-30" placeholder=" Y2"><br>
+      <button id="drawBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px; margin-top: 20px;"><strong>Draw</strong></button>
     `;
 
     // Waits for the draw button to be clicked to start drawing
@@ -255,7 +250,7 @@ export function chooseTriangle() {   // Displays triangle type options for the u
     </ul>
   `);
   const inputSection = document.getElementById('inputSection');
-  inputSection.innerHTML = `<p>Choose the type of triangle you'd like to create</p>`;
+  inputSection.innerHTML = `<p class="text-center font-bold mb-3">Choose the type of triangle you'd like to create</p>`;
 
   const buttons = [ // Define the triangle options with their corresponding event handler functions
     { label: "Equilateral Triangle", handler: equilateralTriangle },
@@ -267,7 +262,13 @@ export function chooseTriangle() {   // Displays triangle type options for the u
   buttons.forEach(({ label, handler }) => {
     const btn = document.createElement("button");
     btn.textContent = label;
-    btn.style.width = "70%";
+    btn.style.width = "80%";
+    btn.style.color = "white";
+    btn.style.marginLeft = "25px";
+    btn.style.marginBottom = "5px";
+    btn.style.paddingBottom = "5px";
+    btn.style.borderRadius = "10px";
+    btn.style.backgroundColor = "#BE185D";
     btn.addEventListener("click", handler);
     inputSection.appendChild(btn);
   });
@@ -283,9 +284,9 @@ function equilateralTriangle() {  // Creates an equilateral triangle based on on
     initialInputs((x, y) => {
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
-      <p>Enter side length:</p>
-      <input type="number" id="side" placeholder="Side length">
-      <button id="drawBtn">Draw</button>
+      <p style="font-weight: bold; margin-bottom: 10px; text-align: center;">Enter side length:</p>
+      <input type="number" id="side" class="ml-10 h-30" placeholder=" Side length">
+      <button id="drawBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px; margin-top: 20px;"><strong>Draw</strong></button>
     `;
 
     // Waits for the draw button to be clicked to start drawing
@@ -320,10 +321,10 @@ function isoscelesTriangle() {  // Creates an isosceles triangle from one base p
     initialInputs((x, y) => {
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
-      <p>Enter base and height:</p>
-      <input type="number" id="base" placeholder="Base">
-      <input type="number" id="height" placeholder="Height">
-      <button id="drawBtn">Draw</button>
+      <p style="font-weight: bold; margin-bottom: 10px; text-align: center;">Enter base and height:</p>
+      <input type="number" id="base" class="ml-10 h-30" placeholder=" Base">
+      <input type="number" id="height" class="ml-10 h-30" placeholder=" Height">
+      <button id="drawBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px; margin-top: 20px;"><strong>Draw</strong></button>
     `;
 
     // Waits for the draw button to be clicked to start drawing
@@ -358,12 +359,12 @@ function scaleneTriangle() {  // Creates a scalene triangle by collecting 3 sepa
     initialInputs((x1, y1) => {
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
-      <p>Enter two more points for the triangle:</p>
-      <input type="number" id="x2" placeholder="X2">
-      <input type="number" id="y2" placeholder="Y2">
-      <input type="number" id="x3" placeholder="X3">
-      <input type="number" id="y3" placeholder="Y3">
-      <button id="drawBtn">Draw</button>
+      <p style="font-weight: bold; margin-bottom: 5px; text-align: center;">Enter two more points:</p>
+      <input type="number" id="x2" class="ml-10" placeholder=" X2">
+      <input type="number" id="y2" class="ml-10" placeholder=" Y2">
+      <input type="number" id="x3" class="ml-10" placeholder=" X3">
+      <input type="number" id="y3" class="ml-10" placeholder=" Y3">
+      <button id="drawBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px; margin-top: 10px;"><strong>Draw</strong></button>
     `;
 
     // Waits for the draw button to be clicked to start drawing
