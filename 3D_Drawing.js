@@ -12,6 +12,15 @@ export function drawCube() {
     <ul class="list-disc list-inside space-y-1">
       <li><strong>Cube:</strong> Enter center coords, then specify radius.</li>
       <li>Radius in logical units (1 unit = 20px).</li>
+      <br>
+      <li><strong>Pan:</strong> Click and drag to shift the entire 3D view without rotating it.
+                                Repositions shape without changing orientation.</li>
+      <li><strong>Reset Camera:</strong> Click to return the graph to its original centered position and default zoom level.</li>
+      <li><strong>Orbital Rotation:</strong> Rotates shape around a fixed center point. Great for full 360° exploration.</li>
+      <li><strong>Turntable Roation:</strong> Restricts rotation to a horizontal axis. 
+                                              Useful for keeping the vertical view stable while examining the shape.</li>
+      <li><strong>Zoom:</strong> Use your mouse wheel or trackpad scroll to zoom in or out, 
+                                focusing on specific parts of the shape.</li>                                                                  
     </ul>
   `);
   const inputSection = document.getElementById('inputSection');
@@ -52,6 +61,15 @@ export function drawPyramid() {
   <ul class="list-disc list-inside space-y-1">
     <li><strong>Pyramid:</strong> Enter center coords, then specify radius.</li>
     <li>Radius in logical units (1 unit = 20px).</li>
+    <br>
+    <li><strong>Pan:</strong> Click and drag to shift the entire 3D view without rotating it.
+                              Repositions shape without changing orientation.</li>
+    <li><strong>Reset Camera:</strong> Click to return the graph to its original centered position and default zoom level.</li>
+    <li><strong>Orbital Rotation:</strong> Rotates shape around a fixed center point. Great for full 360° exploration.</li>
+    <li><strong>Turntable Roation:</strong> Restricts rotation to a horizontal axis. 
+                                            Useful for keeping the vertical view stable while examining the shape.</li>
+    <li><strong>Zoom:</strong> Use your mouse wheel or trackpad scroll to zoom in or out, 
+                               focusing on specific parts of the shape.</li>    
   </ul>
 `);
   const inputSection = document.getElementById('inputSection');
@@ -92,6 +110,15 @@ export function drawSphere() {
   <ul class="list-disc list-inside space-y-1">
     <li><strong>Sphere:</strong> Enter center coords, then specify radius.</li>
     <li>Radius in logical units (1 unit = 20px).</li>
+    <br>
+    <li><strong>Pan:</strong> Click and drag to shift the entire 3D view without rotating it.
+                              Repositions shape without changing orientation.</li>
+    <li><strong>Reset Camera:</strong> Click to return the graph to its original centered position and default zoom level.</li>
+    <li><strong>Orbital Rotation:</strong> Rotates shape around a fixed center point. Great for full 360° exploration.</li>
+    <li><strong>Turntable Roation:</strong> Restricts rotation to a horizontal axis. 
+                                            Useful for keeping the vertical view stable while examining the shape.</li>
+    <li><strong>Zoom:</strong> Use your mouse wheel or trackpad scroll to zoom in or out, 
+                               focusing on specific parts of the shape.</li> 
   </ul>
 `);
   const inputSection = document.getElementById('inputSection');
@@ -145,6 +172,15 @@ export function drawPrism() {
   <ul class="list-disc list-inside space-y-1">
     <li><strong>Prism:</strong> Enter center coords, then specify radius.</li>
     <li>Radius in logical units (1 unit = 20px).</li>
+    <br>
+    <li><strong>Pan:</strong> Click and drag to shift the entire 3D view without rotating it.
+                              Repositions shape without changing orientation.</li>
+    <li><strong>Reset Camera:</strong> Click to return the graph to its original centered position and default zoom level.</li>
+    <li><strong>Orbital Rotation:</strong> Rotates shape around a fixed center point. Great for full 360° exploration.</li>
+    <li><strong>Turntable Roation:</strong> Restricts rotation to a horizontal axis. 
+                                            Useful for keeping the vertical view stable while examining the shape.</li>
+    <li><strong>Zoom:</strong> Use your mouse wheel or trackpad scroll to zoom in or out, 
+                               focusing on specific parts of the shape.</li> 
   </ul>
 `);
   const inputSection = document.getElementById('inputSection');
