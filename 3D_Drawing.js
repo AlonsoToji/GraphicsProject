@@ -10,8 +10,7 @@ window.setInstructions3D = setInstructions3D;
 export function drawCube() {
   setInstructions3D(`
     <ul class="list-disc list-inside space-y-1">
-      <li><strong>Cube:</strong> Enter center coords, then specify radius.</li>
-      <li>Radius in logical units (1 unit = 20px).</li>
+      <li><strong>Cube:</strong> Enter center coordinates, then specify radius.</li>
       <br>
       <li><strong>Pan:</strong> Click and drag to shift the entire 3D view without rotating it.
                                 Repositions shape without changing orientation.</li>
@@ -59,8 +58,7 @@ function plotCube() {
 export function drawPyramid() {
   setInstructions3D(`
   <ul class="list-disc list-inside space-y-1">
-    <li><strong>Pyramid:</strong> Enter center coords, then specify radius.</li>
-    <li>Radius in logical units (1 unit = 20px).</li>
+    <li><strong>Pyramid:</strong> Enter center coordinates, then specify radius.</li>
     <br>
     <li><strong>Pan:</strong> Click and drag to shift the entire 3D view without rotating it.
                               Repositions shape without changing orientation.</li>
@@ -108,8 +106,7 @@ function plotPyramid() {
 export function drawSphere() {
   setInstructions3D(`
   <ul class="list-disc list-inside space-y-1">
-    <li><strong>Sphere:</strong> Enter center coords, then specify radius.</li>
-    <li>Radius in logical units (1 unit = 20px).</li>
+    <li><strong>Sphere:</strong> Enter center coordinates, then specify radius.</li>
     <br>
     <li><strong>Pan:</strong> Click and drag to shift the entire 3D view without rotating it.
                               Repositions shape without changing orientation.</li>
@@ -170,8 +167,7 @@ function plotSphere() {
 export function drawPrism() {
   setInstructions3D(`
   <ul class="list-disc list-inside space-y-1">
-    <li><strong>Prism:</strong> Enter center coords, then specify radius.</li>
-    <li>Radius in logical units (1 unit = 20px).</li>
+    <li><strong>Prism:</strong> Enter center coordinates, then specify radius.</li>
     <br>
     <li><strong>Pan:</strong> Click and drag to shift the entire 3D view without rotating it.
                               Repositions shape without changing orientation.</li>

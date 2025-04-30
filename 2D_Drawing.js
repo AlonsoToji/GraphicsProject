@@ -51,8 +51,8 @@ function initialInputs(callback) {  // Retrieves the initial position from the u
   const inputSection = document.getElementById('inputSection');
   inputSection.innerHTML = `
    <p style="text-align: center;"><strong>Enter initial coordinates:</strong></p><br>
-    <input type="number" style="margin-left: 40px;" id="xCoord" placeholder=" X coordinate">
-    <input type="number" style="margin-left: 40px;" id="yCoord" placeholder=" Y coordinate"><br><br>
+    <input type="number" style="margin-left: 40px;" id="xCoord" placeholder=" X coordinate" class="border rounded p-1 m-1">
+    <input type="number" style="margin-left: 40px;" id="yCoord" placeholder=" Y coordinate" class="border rounded p-1 m-1"><br><br>
     <button id="nextBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px;" ><strong>Next</strong></button>
   `;
 
@@ -78,7 +78,7 @@ export function createCircle() {   // Retrieves radius from user and renders a c
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
       <p style="font-weight: bold; margin-left: 65px; margin-bottom: 15px;">Enter the radius</p>
-      <input type="number" id="radius" class="ml-10 h-30" placeholder=" Radius">
+      <input type="number" style="margin-left: 40px;" id="radius" placeholder=" Radius" class="border rounded p-1 m-1">
       <button id="drawBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px; margin-top: 20px;" ><strong>Draw</strong></button>
     `;
 
@@ -110,7 +110,7 @@ export function createSquare() {   // Retrieves side length and draws a square w
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
       <p style="font-weight: bold; margin-left: 50px; margin-bottom: 10px;">Enter the side length</p>
-      <input type="number" id="sideLength" class="ml-10 h-30" placeholder=" Side Length"><br>
+      <input type="number" id="sideLength" style="margin-left: 40px;" placeholder=" Side Length" class="border rounded p-1 m-1"><br>
       <button id="drawBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px; margin-top: 20px;"><strong>Draw</strong></button>
     `;
 
@@ -156,8 +156,8 @@ export function createRectangle() {  // Retrieves width and height and renders a
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
       <p style="font-weight: bold; margin-bottom: 10px; text-align: center;">Enter width and height of the rectangle:</p>
-      <input type="number" id="width" class="ml-10 h-30" placeholder=" Width">
-      <input type="number" id="height" class="ml-10 h-30" placeholder=" Height">
+      <input type="number" id="width" style="margin-left: 40px;" placeholder=" Width" class="border rounded p-1 m-1">
+      <input type="number" id="height" style="margin-left: 40px;" placeholder=" Height" class="border rounded p-1 m-1">
       <button id="drawBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px; margin-top: 20px;"><strong>Draw</strong></button>
     `;
 
@@ -207,8 +207,8 @@ export function createLine() {   // Retrieves a second point and draws a line fr
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
       <p style="font-weight: bold; margin-bottom: 10px; text-align: center;">Enter the second point for the line:</p>
-      <input type="number" id="x2" class="ml-10 h-30" placeholder=" X2">
-      <input type="number" id="y2" class="ml-10 h-30" placeholder=" Y2"><br>
+      <input type="number" id="x2" style="margin-left: 40px;" placeholder=" X2" class="border rounded p-1 m-1">
+      <input type="number" id="y2" style="margin-left: 40px;" placeholder=" Y2" class="border rounded p-1 m-1"><br>
       <button id="drawBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px; margin-top: 20px;"><strong>Draw</strong></button>
     `;
 
@@ -285,7 +285,7 @@ function equilateralTriangle() {  // Creates an equilateral triangle based on on
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
       <p style="font-weight: bold; margin-bottom: 10px; text-align: center;">Enter side length:</p>
-      <input type="number" id="side" class="ml-10 h-30" placeholder=" Side length">
+      <input type="number" id="side" style="margin-left: 40px;" placeholder=" Side length" class="border rounded p-1 m-1">
       <button id="drawBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px; margin-top: 20px;"><strong>Draw</strong></button>
     `;
 
@@ -322,8 +322,8 @@ function isoscelesTriangle() {  // Creates an isosceles triangle from one base p
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
       <p style="font-weight: bold; margin-bottom: 10px; text-align: center;">Enter base and height:</p>
-      <input type="number" id="base" class="ml-10 h-30" placeholder=" Base">
-      <input type="number" id="height" class="ml-10 h-30" placeholder=" Height">
+      <input type="number" id="base" style="margin-left: 40px;" placeholder=" Base" class="border rounded p-1 m-1">
+      <input type="number" id="height" style="margin-left: 40px;" placeholder=" Height" class="border rounded p-1 m-1">
       <button id="drawBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px; margin-top: 20px;"><strong>Draw</strong></button>
     `;
 
@@ -360,10 +360,10 @@ function scaleneTriangle() {  // Creates a scalene triangle by collecting 3 sepa
     const inputSection = document.getElementById('inputSection');
     inputSection.innerHTML = `
       <p style="font-weight: bold; margin-bottom: 5px; text-align: center;">Enter two more points:</p>
-      <input type="number" id="x2" class="ml-10" placeholder=" X2">
-      <input type="number" id="y2" class="ml-10" placeholder=" Y2">
-      <input type="number" id="x3" class="ml-10" placeholder=" X3">
-      <input type="number" id="y3" class="ml-10" placeholder=" Y3">
+      <input type="number" id="x2" style="margin-left: 40px;" placeholder=" X2" class="border rounded p-1 m-1">
+      <input type="number" id="y2" style="margin-left: 40px;" placeholder=" Y2" class="border rounded p-1 m-1">
+      <input type="number" id="x3" style="margin-left: 40px;" placeholder=" X3" class="border rounded p-1 m-1">
+      <input type="number" id="y3" style="margin-left: 40px;" placeholder=" Y3" class="border rounded p-1 m-1">
       <button id="drawBtn" style="margin-left: 100px; background-color: #92400E; height: 30px; width: 60px; border-radius: 10px; margin-top: 10px;"><strong>Draw</strong></button>
     `;
 
