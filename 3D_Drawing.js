@@ -45,7 +45,7 @@ function fullInstructions(title) {
       <li><strong>Pan:</strong> Click and drag to shift the entire shape without rotating it.</li>
       <li><strong>Reset Camera:</strong> Returns the view to default position and zoom.</li>
       <li><strong>Orbital Rotation:</strong> Rotates shape around a fixed point for 360° view.</li>
-      <li><strong>Turntable Rotation:</strong> Horizontal rotation only. View/rotate shape while top and bottom are fixed.</li>
+      <li><strong>Turntable Rotation:</strong> Rotates shape around a vertical axis. View object from all sides without flipping.</li>
       <li><strong>Zoom:</strong> Use mouse wheel or trackpad scroll to zoom in and out.</li>                                                                  
     </ul>
   `;
