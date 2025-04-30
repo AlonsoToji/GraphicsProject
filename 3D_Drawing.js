@@ -16,7 +16,7 @@ export function drawCube() {
   `);
   const inputSection = document.getElementById('inputSection');
   inputSection.innerHTML = `
-      <p class="mb-2 font-semibold">Cube: Enter center coordinates and side length</p>
+    
       <input type="number" id="xCoord" placeholder="X" class="border rounded p-1 m-1">
       <input type="number" id="yCoord" placeholder="Y" class="border rounded p-1 m-1">
       <input type="number" id="zCoord" placeholder="Z" class="border rounded p-1 m-1">
@@ -56,7 +56,7 @@ export function drawPyramid() {
 `);
   const inputSection = document.getElementById('inputSection');
   inputSection.innerHTML = `
-      <p class="mb-2 font-semibold">Pyramid: Enter center coordinates, base size, and height</p>
+      
       <input type="number" id="xCoord" placeholder="X" class="border rounded p-1 m-1">
       <input type="number" id="yCoord" placeholder="Y" class="border rounded p-1 m-1">
       <input type="number" id="zCoord" placeholder="Z" class="border rounded p-1 m-1">
@@ -96,7 +96,7 @@ export function drawSphere() {
 `);
   const inputSection = document.getElementById('inputSection');
   inputSection.innerHTML = `
-      <p class="mb-2 font-semibold">Sphere: Enter center coordinates and radius</p>
+    
       <input type="number" id="xCoord" placeholder="X" class="border rounded p-1 m-1">
       <input type="number" id="yCoord" placeholder="Y" class="border rounded p-1 m-1">
       <input type="number" id="zCoord" placeholder="Z" class="border rounded p-1 m-1">
@@ -149,7 +149,7 @@ export function drawPrism() {
 `);
   const inputSection = document.getElementById('inputSection');
   inputSection.innerHTML = `
-      <p class="mb-2 font-semibold">Rectangular Prism: Enter center coordinates, width, height, and depth</p>
+      
       <input type="number" id="xCoord" placeholder="X" class="border rounded p-1 m-1">
       <input type="number" id="yCoord" placeholder="Y" class="border rounded p-1 m-1">
       <input type="number" id="zCoord" placeholder="Z" class="border rounded p-1 m-1">
